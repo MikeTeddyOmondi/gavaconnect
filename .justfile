@@ -14,11 +14,11 @@ fmt-check:
 
 # run clippy (warnings = errors)
 clippy:
-    cargo clippy --all-targets --locked -- -D warnings
+    cargo clippy --all-targets --all-features --locked -- -D warnings
 
 # run tests
 test:
-    cargo test --locked
+    cargo test --locked --all-features
 
 # fmt → clippy → test (mirrors CI)
 ci: fmt-check clippy test
