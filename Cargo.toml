@@ -2,7 +2,7 @@
 name = "gavaconnect"
 version = "0.1.0"
 edition = "2021"
-authors = ["Rancko <rancko@locci.cloud>"]
+authors = ["Engineering <engineering@locci.cloud>"]
 license = "Apache-2.0"
 description = "A comprehensive Rust SDK for the Kenya Revenue Authority (KRA) API — PIN management, tax filing, eTIMS, customs, and more."
 repository = "https://github.com/locci-cloud/gavaconnect"
