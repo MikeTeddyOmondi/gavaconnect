@@ -343,7 +343,7 @@ let result = client.etims_call(
 
 ## Error Handling
 
-All methods return `gavaconnect::Result<serde_json::Value>`. The error type `GavaError` covers:
+All methods return `gavaconnect::Result<serde_json::Value>`. The error type `GavaConnectError` covers:
 
 | Variant                 | When                                               |
 | ----------------------- | -------------------------------------------------- |
@@ -356,14 +356,14 @@ All methods return `gavaconnect::Result<serde_json::Value>`. The error type `Gav
 Pattern matching example:
 
 ```rust
-use gavaconnect::GavaError;
+use gavaconnect::GavaConnectError;
 
 match client.check_station("BAD_PIN").await {
     Ok(v) => println!("{v}"),
-    Err(GavaError::Kra { code, message }) => {
+    Err(GavaConnectError::Kra { code, message }) => {
         eprintln!("KRA says: [{code}] {message}");
     }
-    Err(GavaError::NotAuthenticated) => {
+    Err(GavaConnectError::NotAuthenticated) => {
         client.authenticate().await?;
     }
     Err(e) => eprintln!("Error: {e}"),

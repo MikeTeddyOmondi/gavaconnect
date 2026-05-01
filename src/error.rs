@@ -2,7 +2,7 @@ use thiserror::Error;
 
 /// All errors that can occur when interacting with the KRA API.
 #[derive(Debug, Error)]
-pub enum GavaError {
+pub enum GavaConnectError {
     /// HTTP transport error from reqwest.
     #[error("HTTP error: {0}")]
     Http(#[from] reqwest::Error),
@@ -24,4 +24,4 @@ pub enum GavaError {
     Kra { code: String, message: String },
 }
 
-pub type Result<T> = std::result::Result<T, GavaError>;
+pub type Result<T> = std::result::Result<T, GavaConnectError>;

@@ -41,7 +41,7 @@ impl GavaConnectClient {
         if !resp.status().is_success() {
             let status = resp.status().as_u16();
             let body = resp.text().await.unwrap_or_default();
-            return Err(crate::error::GavaError::Api { status, body });
+            return Err(crate::error::GavaConnectError::Api { status, body });
         }
 
         let token_resp: TokenResponse = resp.json().await?;
@@ -120,6 +120,9 @@ mod tests {
     async fn test_token_state_not_authenticated() {
         let client = GavaConnectClient::sandbox("id", "secret");
         let err = client.bearer_token().await.unwrap_err();
-        assert!(matches!(err, crate::error::GavaError::NotAuthenticated));
+        assert!(matches!(
+            err,
+            crate::error::GavaConnectError::NotAuthenticated
+        ));
     }
 }

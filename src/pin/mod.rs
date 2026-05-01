@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::client::GavaConnectClient;
-use crate::error::{GavaError, Result};
+use crate::error::{GavaConnectError, Result};
 
 // ── Request types ───────────────────────────────────────────────────────────
 
@@ -115,14 +115,14 @@ impl GavaConnectClient {
         let body_text = resp.text().await.unwrap_or_default();
 
         if status == 401 {
-            return Err(GavaError::Api {
+            return Err(GavaConnectError::Api {
                 status,
                 body: body_text,
             });
         }
 
         let value: serde_json::Value =
-            serde_json::from_str(&body_text).map_err(|_| GavaError::Api {
+            serde_json::from_str(&body_text).map_err(|_| GavaConnectError::Api {
                 status,
                 body: body_text.clone(),
             })?;
@@ -134,14 +134,14 @@ impl GavaConnectClient {
                 .and_then(|v| v.as_str())
                 .unwrap_or("Unknown error")
                 .to_string();
-            return Err(GavaError::Kra {
+            return Err(GavaConnectError::Kra {
                 code: code.to_string(),
                 message,
             });
         }
 
         if !(200..=299).contains(&status) {
-            return Err(GavaError::Api {
+            return Err(GavaConnectError::Api {
                 status,
                 body: body_text,
             });

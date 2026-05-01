@@ -69,4 +69,4 @@ pub mod etims;
 
 // Re-export the primary types at the crate root for convenience.
 pub use client::{Environment, GavaConnectClient};
-pub use error::{GavaError, Result};
+pub use error::{GavaConnectError, Result};

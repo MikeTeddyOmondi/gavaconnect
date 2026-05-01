@@ -1,7 +1,7 @@
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
-use crate::error::{GavaError, Result};
+use crate::error::{GavaConnectError, Result};
 
 /// KRA environment selector.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -73,7 +73,7 @@ impl GavaConnectClient {
         state
             .access_token
             .clone()
-            .ok_or(GavaError::NotAuthenticated)
+            .ok_or(GavaConnectError::NotAuthenticated)
     }
 
     /// Build an authenticated POST request.
@@ -109,7 +109,7 @@ mod tests {
     async fn test_bearer_token_not_authenticated() {
         let client = GavaConnectClient::sandbox("id", "secret");
         let err = client.bearer_token().await.unwrap_err();
-        assert!(matches!(err, GavaError::NotAuthenticated));
+        assert!(matches!(err, GavaConnectError::NotAuthenticated));
     }
 
     #[tokio::test]
@@ -127,6 +127,6 @@ mod tests {
     async fn test_post_not_authenticated() {
         let client = GavaConnectClient::sandbox("id", "secret");
         let err = client.post("/checker/v1/pin").await.unwrap_err();
-        assert!(matches!(err, GavaError::NotAuthenticated));
+        assert!(matches!(err, GavaConnectError::NotAuthenticated));
     }
 }
