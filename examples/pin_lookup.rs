@@ -8,7 +8,7 @@ use gavaconnect::GavaConnectClient;
 
 #[tokio::main]
 async fn main() -> gavaconnect::Result<()> {
-    dotenvy::dotenv().ok(); 
+    dotenvy::dotenv().ok();
 
     let client_id = std::env::var("GAVACONNECT_CLIENT_ID").expect("GAVACONNECT_CLIENT_ID not set");
     let client_secret =
@@ -18,7 +18,10 @@ async fn main() -> gavaconnect::Result<()> {
 
     // Step 1: Authenticate
     let token = client.authenticate().await?;
-    println!("✓ Authenticated (expires in {:?}s)\n", token.expires_in.unwrap());
+    println!(
+        "✓ Authenticated (expires in {:?}s)\n",
+        token.expires_in.unwrap()
+    );
 
     // Step 2: Look up a PIN by national ID
     let by_id = client.pin_checker_by_id("KE", "33503527").await?;
