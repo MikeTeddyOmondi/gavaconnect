@@ -39,7 +39,7 @@ jobs:
       - name: Install cmake (required by aws-lc-sys)
         run: sudo apt-get install -y cmake
       - name: cargo clippy
-        run: cargo clippy --all-targets --locked -- -D warnings
+        run: cargo clippy --all-targets --all-features --locked -- -D warnings
 
   test:
     name: Tests
@@ -60,4 +60,4 @@ jobs:
       - name: Install cmake (required by aws-lc-sys)
         run: sudo apt-get install -y cmake
       - name: cargo test
-        run: cargo test --locked
+        run: cargo test --all-features --locked
