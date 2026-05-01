@@ -1,0 +1,39 @@
+[package]
+name = "gavaconnect"
+version = "0.1.0"
+edition = "2021"
+authors = ["Rancko <rancko@locci.cloud>"]
+license = "Apache-2.0"
+description = "A comprehensive Rust SDK for the Kenya Revenue Authority (KRA) API — PIN management, tax filing, eTIMS, customs, and more."
+repository = "https://github.com/locci-cloud/gavaconnect"
+keywords = ["kra", "kenya", "tax", "etims", "sdk"]
+categories = ["api-bindings", "web-programming"]
+readme = "README.md"
+
+[dependencies]
+reqwest = { version = "0.12", features = ["json"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+base64 = "0.22"
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["full", "test-util"] }
+wiremock = "0.6"
+serde_json = "1"
+dotenvy = "0.15.7"
+
+[features]
+default = ["full"]
+full = ["auth", "pin", "checker", "customs", "filing", "prn", "tcc", "excise", "etims"]
+auth = []
+pin = ["auth"]
+checker = ["auth"]
+customs = ["auth"]
+filing = ["auth"]
+prn = ["auth"]
+tcc = ["auth"]
+excise = ["auth"]
+etims = ["auth"]
